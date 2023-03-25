@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const blogRouter = express.Router();
 
 // Create
+
 blogRouter.post("/add", async (req, res) => {
   const payload = req.body;
   try {
