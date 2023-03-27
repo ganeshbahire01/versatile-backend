@@ -7,7 +7,7 @@ const jwt = require("jsonwebtoken");
 userRouter.post("/register", async (req, res) => {
   const { firstname, lastname, email, password, mobile } = req.body;
   try {
-    const isEmail = await UserModel.findOne({ email: email });
+    const isEmail = await UserModel.find({ email: email });
     if (isEmail) {
       res.status(400).send({ message: "Email already exists" });
     } else {
@@ -33,7 +33,7 @@ userRouter.post("/register", async (req, res) => {
 userRouter.post("/login", async (req, res) => {
   const { email, password } = req.body;
   try {
-    const user = await UserModel.findOne({ email: email });
+    const user = await UserModel.find({ email: email });
     if (user) {
       bcrypt.compare(password, user.password, (err, result) => {
         if (result) {
