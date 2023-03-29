@@ -52,11 +52,22 @@ userRouter.post("/login", async (req, res) => {
     res.status(400).send({ message: err.message });
   }
 });
-
+// GET ALL USERS
 userRouter.get("/allusers", async (req, res) => {
   try {
     let users = await UserModel.find({});
     res.send(users);
+  } catch (error) {
+    res.send(error.message);
+  }
+});
+
+// DELETE User
+
+userRouter.delete("delete/:id", async (req, res) => {
+  try {
+    let user = await UserModel.findByIdAndDelete(req.params.id);
+    res.send("Delete Successful");
   } catch (error) {
     res.send(error.message);
   }
