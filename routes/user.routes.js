@@ -64,7 +64,7 @@ userRouter.get("/allusers", async (req, res) => {
 
 // DELETE User
 
-userRouter.delete("delete/:id", async (req, res) => {
+userRouter.delete("/delete/:id", async (req, res) => {
   try {
     let user = await UserModel.findByIdAndDelete(req.params.id);
     res.send("Delete Successful");
