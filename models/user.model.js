@@ -15,6 +15,8 @@ const userSchema = mongoose.Schema(
     },
     mobile: Number,
     isLogin: Boolean,
+    score: Number,
+    course: String,
   },
   {
     versionKey: false,

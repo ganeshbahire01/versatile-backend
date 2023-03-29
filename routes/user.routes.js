@@ -5,7 +5,8 @@ const userRouter = express.Router();
 const jwt = require("jsonwebtoken");
 
 userRouter.post("/register", async (req, res) => {
-  const { firstname, lastname, email, password, mobile } = req.body;
+  const { firstname, lastname, email, password, mobile, course, score } =
+    req.body;
   try {
     const isEmail = await UserModel.find({ email: email });
     if (isEmail.length > 0) {
@@ -19,6 +20,8 @@ userRouter.post("/register", async (req, res) => {
           password: hash,
           mobile,
           isLogin: false,
+          course,
+          score,
         };
         const user = new UserModel(payload);
         await user.save();
@@ -72,5 +75,5 @@ userRouter.delete("/delete/:id", async (req, res) => {
     res.send(error.message);
   }
 });
-
+// UPDATE USER
 module.exports = userRouter;
