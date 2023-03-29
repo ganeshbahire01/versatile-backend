@@ -53,4 +53,13 @@ userRouter.post("/login", async (req, res) => {
   }
 });
 
+userRouter.get("/allusers", async (req, res) => {
+  try {
+    let users = await UserModel.find();
+    res.send(users);
+  } catch (error) {
+    res.send(error.message);
+  }
+});
+
 module.exports = userRouter;
