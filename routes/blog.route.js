@@ -20,7 +20,7 @@ blogRouter.post("/add", async (req, res) => {
 // Read
 blogRouter.get("/", async (req, res) => {
   try {
-    const blogs = await BlogModel.find();
+    const blogs = await BlogModel.find({});
     res.status(200).send(blogs);
   } catch (err) {
     res.status(400).send({ message: err.message });
@@ -30,13 +30,17 @@ blogRouter.get("/", async (req, res) => {
 // Update
 blogRouter.patch("/update/:id", async (req, res) => {
   try {
+    const blog = await BlogModel.findByIdAndUpdate(req.params.id, req.body);
+    res.send("Updated blog");
   } catch (err) {
     res.status(400).send({ message: err.message });
   }
 });
 
 // Delete
-blogRouter.delete("/update/:id", async (req, res) => {
+blogRouter.delete("/delete/:id", async (req, res) => {
+  const blog = await BlogModel.findByIdAndDelete(req.params.id);
+  res.send("Delete blog");
   try {
   } catch (err) {
     res.status(400).send({ message: err.message });
