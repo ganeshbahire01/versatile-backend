@@ -1,5 +1,5 @@
 const express = require("express");
-const UserModel = require("../models/user.model");
+const CourseModel = require("../models/course.model.js");
 
 const courseRoute = express.Router();
 
@@ -16,7 +16,7 @@ courseRoute.get("/topic", async (req, res) => {
     query.points = points;
   }
   try {
-    const data = await UserModel.find(query);
+    const data = await CourseModel.find(query);
     res.status(200).send({ message: data });
   } catch (err) {
     res.status(500).send({ message: err.message });
@@ -26,7 +26,7 @@ courseRoute.get("/topic", async (req, res) => {
 courseRoute.post("/add", async (req, res) => {
   const payload = req.body;
   try {
-    const data = new UserModel(payload);
+    const data = new CourseModel(payload);
     await data.save();
     res.status(200).send({ message: "New data has been added", result: data });
   } catch (err) {
@@ -46,7 +46,7 @@ courseRoute.patch("/update", async (req, res) => {
     if (module) query.module = module;
     if (topic) query.topic = topic;
     if (points) query.points = points;
-    const result = await UserModel.updateOne(query, req.body);
+    const result = await CourseModel.updateOne(query, req.body);
     if (result.modifiedCount === 0) {
       return res.status(404).send({ message: "No matching documents found" });
     }
@@ -62,7 +62,7 @@ courseRoute.patch("/update/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const payload = req.body;
-    const result = await UserModel.findByIdAndUpdate({ _id: id }, payload);
+    const result = await CourseModel.findByIdAndUpdate({ _id: id }, payload);
     if (result.modifiedCount === 0) {
       return res.status(404).send({ message: "No matching documents found" });
     }
@@ -92,7 +92,7 @@ courseRoute.delete("/delete", async (req, res) => {
     if (topic) query.topic = topic;
     if (points) query.points = points;
 
-    const result = await UserModel.deleteMany(query);
+    const result = await CourseModel.deleteMany(query);
 
     if (result.deletedCount === 0) {
       return res.status(404).send({ message: "No matching documents found" });
@@ -112,7 +112,7 @@ courseRoute.delete("/delete", async (req, res) => {
 courseRoute.delete("/delete/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    const result = await UserModel.findByIdAndDelete({ _id: id });
+    const result = await CourseModel.findByIdAndDelete({ _id: id });
     if (result.deletedCount === 0) {
       return res.status(404).send({ message: "No matching documents found" });
     }

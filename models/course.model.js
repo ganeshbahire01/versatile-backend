@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const userSchema = mongoose.Schema(
+const CourseSchema = mongoose.Schema(
   {
     module: String,
     topic: String,
@@ -12,9 +12,9 @@ const userSchema = mongoose.Schema(
   }
 );
 
-const UserModel = mongoose.model("user", userSchema);
+const CourseModel = mongoose.model("user", CourseSchema);
 
-module.exports = UserModel;
+module.exports = CourseModel;
 
 /*
 
