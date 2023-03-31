@@ -23,7 +23,7 @@ courseRoute.get("/topic", async (req, res) => {
   }
 });
 
-courseRoute.get("/:id", async (res, next) => {
+courseRoute.get("/:id", async (req, res) => {
   const { id } = req.params;
 
   try {
