@@ -24,8 +24,10 @@ courseRoute.get("/topic", async (req, res) => {
 });
 
 courseRoute.get("/:id", async (res, next) => {
+  const { id } = req.params;
+
   try {
-    let data = await CourseModel.findById(req.params.id);
+    let data = await CourseModel.findById({ _id: id });
     res.status(200).send({ message: data });
   } catch (error) {
     res.status(500).send({ message: err.message });
