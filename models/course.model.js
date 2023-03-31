@@ -12,7 +12,7 @@ const CourseSchema = mongoose.Schema(
   }
 );
 
-const CourseModel = mongoose.model("user", CourseSchema);
+const CourseModel = mongoose.model("course", CourseSchema);
 
 module.exports = CourseModel;
 
