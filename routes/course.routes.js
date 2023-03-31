@@ -23,6 +23,14 @@ courseRoute.get("/topic", async (req, res) => {
   }
 });
 
+courseRoute.get("/:id", async (res, next) => {
+  try {
+    let data = await CourseModel.findById(req.params.id);
+    res.status(200).send({ message: data });
+  } catch (error) {
+    res.status(500).send({ message: err.message });
+  }
+});
 courseRoute.post("/add", async (req, res) => {
   const payload = req.body;
   try {
