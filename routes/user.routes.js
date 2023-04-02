@@ -39,17 +39,18 @@ userRouter.post("/login", async (req, res) => {
     const user = await UserModel.find({ email: email });
     if (user.length > 0) {
       bcrypt.compare(password, user[0].password, (err, result) => {
-        if(user[0].isAdmin&&result){
-             res.status(200).send({
-            message: "Login successful",
-            token: (token = jwt.sign({ userID: user[0]._id }, "somesh")),
-            owner:"edith"
-          });
-        }else
+//         if(user[0].isAdmin&&result){
+//              res.status(200).send({
+//             message: "Login successful",
+//             token: (token = jwt.sign({ userID: user[0]._id }, "somesh")),
+//             owner:"edith"
+//           });
+//         }else
         if (result) {
           res.status(200).send({
             message: "Login successful",
             token: (token = jwt.sign({ userID: user[0]._id }, "somesh")),
+            user: user[0]
           });
         } else {
           res.status(400).send({ message: "Invalid password" });
