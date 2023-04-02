@@ -50,7 +50,7 @@ userRouter.post("/login", async (req, res) => {
           res.status(200).send({
             message: "Login successful",
             token: (token = jwt.sign({ userID: user[0]._id }, "somesh")),
-            owner: user[0].isAdmin
+            owner: user[0]
           });
         } else {
           res.status(400).send({ message: "Invalid password" });
