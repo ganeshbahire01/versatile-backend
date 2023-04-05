@@ -6,10 +6,12 @@ const userRouter = require("./routes/user.routes");
 require("dotenv").config();
 const cors = require("cors");
 const courseRoute = require("./routes/course.routes");
+const adminRouter = require("./routes/admin.route");
 const app = express();
 app.use(cors());
 app.use(express.json());
 app.use("/users", userRouter);
+app.use("/admin", adminRouter);
 // app.use(auth);
 app.use("/blogs", blogRouter);
 

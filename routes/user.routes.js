@@ -39,24 +39,30 @@ userRouter.post("/login", async (req, res) => {
   try {
     const user = await UserModel.find({ email: email });
     if (user.length > 0) {
-      bcrypt.compare(password, user[0].password, (err, result) => {
-        //         if(user[0].isAdmin&&result){
-        //              res.status(200).send({
-        //             message: "Login successful",
-        //             token: (token = jwt.sign({ userID: user[0]._id }, "somesh")),
-        //             owner:"edith"
-        //           });
-        //         }else
-        if (result) {
-          res.status(200).send({
-            message: "Login successful",
-            token: (token = jwt.sign({ userID: user[0]._id }, "somesh")),
-            owner: user[0],
-          });
-        } else {
-          res.status(400).send({ message: "Invalid password" });
-        }
-      });
+      if (user[0].isLogin) {
+        bcrypt.compare(password, user[0].password, (err, result) => {
+          //         if(user[0].isAdmin&&result){
+          //              res.status(200).send({
+          //             message: "Login successful",
+          //             token: (token = jwt.sign({ userID: user[0]._id }, "somesh")),
+          //             owner:"edith"
+          //           });
+          //         }else
+          if (result) {
+            res.status(200).send({
+              message: "Login successful",
+              token: (token = jwt.sign({ userID: user[0]._id }, "somesh")),
+              owner: user[0],
+            });
+          } else {
+            res.status(400).send({ message: "Invalid password" });
+          }
+        });
+      } else {
+        res
+          .status(400)
+          .send({ message: "Please wait registration is in process" });
+      }
     } else {
       res.status(400).send({ message: "Invalid email" });
     }
@@ -64,7 +70,6 @@ userRouter.post("/login", async (req, res) => {
     res.status(400).send({ message: err.message });
   }
 });
-
 
 // GET ALL USERS
 userRouter.get("/allusers", async (req, res) => {
@@ -101,4 +106,3 @@ userRouter.patch("/approve/:id", adminauth, async (req, res) => {
 });
 
 module.exports = userRouter;
-
