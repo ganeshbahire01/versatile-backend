@@ -61,7 +61,7 @@ adminRouter.get("/auth", adminauth, async (req, res) => {
       message: "You are logged in as admin",
     });
   } catch (err) {
-    res.status(400).send({ message: err.message });
+    res.status(400).send({ message: "Not authorized" });
   }
 });
 
