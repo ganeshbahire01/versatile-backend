@@ -3,6 +3,7 @@ const AdminModel = require("../models/admin.model");
 const bcrypt = require("bcrypt");
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
+const adminauth = require("../middlewares/adminauth.middleware");
 
 const adminRouter = express.Router();
 
@@ -41,7 +42,7 @@ adminRouter.post("/login", async (req, res) => {
           res.status(200).send({
             message: "Login successful",
             token: jwt.sign({ role: "admin" }, process.env.adminSecretkey),
-          }); 
+          });
         } else {
           res.status(400).send({ message: "Invalid password" });
         }
@@ -49,6 +50,16 @@ adminRouter.post("/login", async (req, res) => {
     } else {
       res.status(400).send({ message: "User not authorized to logged in!" });
     }
+  } catch (err) {
+    res.status(400).send({ message: err.message });
+  }
+});
+
+adminRouter.get("/auth", adminauth, async (req, res) => {
+  try {
+    res.status(200).send({
+      message: "You are logged in as admin",
+    });
   } catch (err) {
     res.status(400).send({ message: err.message });
   }
