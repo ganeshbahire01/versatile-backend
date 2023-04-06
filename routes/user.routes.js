@@ -105,4 +105,12 @@ userRouter.patch("/approve/:id", adminauth, async (req, res) => {
   }
 });
 
+userRouter.get("/:id", async (req, res) => {
+  try {
+    let user = await UserModel.find({ _id: req.params.id });
+    res.status(200).send(user);
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+});
 module.exports = userRouter;
