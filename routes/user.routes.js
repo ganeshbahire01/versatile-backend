@@ -113,4 +113,13 @@ userRouter.get("/:id", async (req, res) => {
     res.status(400).send(error.message);
   }
 });
+
+userRouter.patch("/:id", adminauth, async (req, res) => {
+  try {
+    let user = await UserModel.findByIdAndUpdate(req.params.id, req.body);
+    res.status(200).send("Update Successful");
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+});
 module.exports = userRouter;
