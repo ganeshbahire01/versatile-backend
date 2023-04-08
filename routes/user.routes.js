@@ -23,6 +23,7 @@ userRouter.post("/register", async (req, res) => {
           isLogin: false,
           course,
           score,
+          fees: 0,
         };
         const user = new UserModel(payload);
         await user.save();
@@ -49,8 +50,8 @@ userRouter.post("/login", async (req, res) => {
           //           });
           //         }else
           if (result) {
-            let obj=user[0]
-            obj.password="lol"
+            let obj = user[0];
+            obj.password = "lol";
             res.status(200).send({
               message: "Login successful",
               token: (token = jwt.sign({ userID: user[0]._id }, "somesh")),
