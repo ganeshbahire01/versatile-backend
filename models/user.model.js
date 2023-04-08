@@ -17,6 +17,8 @@ const userSchema = mongoose.Schema(
     isLogin: Boolean,
     score: Number,
     course: String,
+    fees:Number,
+    Bio:String
   },
   {
     versionKey: false,
