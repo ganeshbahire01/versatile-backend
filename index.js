@@ -7,6 +7,7 @@ require("dotenv").config();
 const cors = require("cors");
 const courseRoute = require("./routes/course.routes");
 const adminRouter = require("./routes/admin.route");
+const qnaRouter = require("./routes/qna.routes");
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -14,8 +15,8 @@ app.use("/users", userRouter);
 app.use("/admin", adminRouter);
 // app.use(auth);
 app.use("/blogs", blogRouter);
-
 app.use("/course", courseRoute);
+app.use("/test", qnaRouter);
 app.listen(process.env.port, async () => {
   try {
     await connection;

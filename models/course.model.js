@@ -33,6 +33,4 @@ _id: "randome3435435"
 // content: "next js is a framework of react"
 
 }
-
-
 */
