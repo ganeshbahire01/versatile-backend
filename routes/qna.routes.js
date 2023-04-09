@@ -14,8 +14,12 @@ qnaRouter.post("/add", async (req, res) => {
 });
 
 qnaRouter.get("/get", async (req, res) => {
+  const page = req.query.page;
+  const pageNumber = page || 1;
+  const pageLimit = limit || 1;
+  const pagination = pageNumber * pageLimit - pageLimit || 0;
   try {
-    let qna = await QnaModel.find({});
+    let qna = await QnaModel.find({}).skip(pagination).limit(pageLimit);
     res.status(200).send(qna);
   } catch (error) {
     res.status(500).send({ message: err.message });
