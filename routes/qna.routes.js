@@ -26,4 +26,13 @@ qnaRouter.get("/get", async (req, res) => {
   }
 });
 
+qnaRouter.delete("/:id", async (req, res) => {
+  try {
+    let user = await QnaModel.findByIdAndDelete(req.params.id);
+    res.status(200).send("Delete Successful");
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+});
+
 module.exports = qnaRouter;

@@ -128,6 +128,7 @@ userRouter.patch("/:id", adminauth, async (req, res) => {
 
 userRouter.patch("/only/:id", async (req, res) => {
   try {
+    
     let user = await UserModel.findByIdAndUpdate(req.params.id, req.body);
     res.status(200).send("Update Successful");
   } catch (error) {
